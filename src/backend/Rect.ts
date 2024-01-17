@@ -5,11 +5,13 @@ export default class Rect extends Shape {
   width: number;
   height: number;
   position: Point;
-  constructor(width: number, height: number, position: Point) {
+  id: string;
+  constructor(width: number, height: number, position: Point, id: string = "") {
     super();
     this.width = width;
     this.height = height;
     this.position = position;
+    this.id = id;
   }
   getWidth() {
     return this.width;
@@ -44,5 +46,18 @@ export default class Rect extends Shape {
     const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
     ctx.strokeStyle = "black";
     ctx.strokeRect(this.getPosition().getX(), this.getPosition().getY(), this.getWidth(), this.getHeight());
+  }
+  drawBoundingBox(): void {
+    const canvas = document.querySelector("#canvas") as HTMLCanvasElement;
+    const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+    const [topLeft, topRight, bottomLeft, bottomRight] = this.getBoundingBox();
+    ctx.strokeStyle = "purple";
+    ctx.beginPath();
+    ctx.moveTo(topLeft.getX(), topLeft.getY());
+    ctx.lineTo(topRight.getX(), topRight.getY());
+    ctx.lineTo(bottomRight.getX(), bottomRight.getY());
+    ctx.lineTo(bottomLeft.getX(), bottomLeft.getY());
+    ctx.lineTo(topLeft.getX(), topLeft.getY());
+    ctx.stroke();
   }
 }

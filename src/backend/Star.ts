@@ -4,10 +4,12 @@ import Shape from "./Shape";
 export default class Star extends Shape {
   position: Point;
   points: Point[];
-  constructor(points: Point[], position: Point) {
+  id: string;
+  constructor(points: Point[], position: Point, id: string = "") {
     super();
     this.points = points;
     this.position = position;
+    this.id = id;
   }
   getFilled(): boolean {
     const canvas = document.querySelector("#canvas") as HTMLCanvasElement;

@@ -4,10 +4,12 @@ import Point from "./Point";
 export default class ComplexItem extends Item {
   children: Item[];
   position: Point;
-  constructor(items: Item[], position: Point) {
+  id: string;
+  constructor(items: Item[], position: Point, id: string = "") {
     super();
     this.children = items;
     this.position = position;
+    this.id = id;
   }
   getChilkdren(): Item[] {
     return this.children;
@@ -50,5 +52,18 @@ export default class ComplexItem extends Item {
     this.children.forEach((item) => {
       item.draw();
     });
+  }
+  drawBoundingBox(): void {
+    const canvas = document.querySelector("#canvas") as HTMLCanvasElement;
+    const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+    const [topLeft, topRight, bottomLeft, bottomRight] = this.getBoundingBox();
+    ctx.strokeStyle = "purple";
+    ctx.beginPath();
+    ctx.moveTo(topLeft.getX(), topLeft.getY());
+    ctx.lineTo(topRight.getX(), topRight.getY());
+    ctx.lineTo(bottomRight.getX(), bottomRight.getY());
+    ctx.lineTo(bottomLeft.getX(), bottomLeft.getY());
+    ctx.lineTo(topLeft.getX(), topLeft.getY());
+    ctx.stroke();
   }
 }

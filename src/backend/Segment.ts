@@ -4,11 +4,12 @@ import Primitive from "./Primitive";
 export default class Segment extends Primitive {
   start: Point;
   end: Point;
-
-  constructor(start: Point, end: Point) {
+  id: string;
+  constructor(start: Point, end: Point, id: string = "") {
     super();
     this.start = start;
     this.end = end;
+    this.id = id;
   }
   getPosition(): Point {
     return this.start;
@@ -51,5 +52,18 @@ export default class Segment extends Primitive {
 
   getEnd(): Point {
     return this.end;
+  }
+  drawBoundingBox(): void {
+    const canvas = document.querySelector("#canvas") as HTMLCanvasElement;
+    const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+    const [topLeft, topRight, bottomLeft, bottomRight] = this.getBoundingBox();
+    ctx.strokeStyle = "purple";
+    ctx.beginPath();
+    ctx.moveTo(topLeft.getX(), topLeft.getY());
+    ctx.lineTo(topRight.getX(), topRight.getY());
+    ctx.lineTo(bottomRight.getX(), bottomRight.getY());
+    ctx.lineTo(bottomLeft.getX(), bottomLeft.getY());
+    ctx.lineTo(topLeft.getX(), topLeft.getY());
+    ctx.stroke();
   }
 }
