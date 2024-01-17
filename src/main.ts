@@ -8,6 +8,7 @@ import TextItem from "./backend/TextItem";
 import Triangle from "./backend/Triangle";
 import Star from "./backend/Star";
 import Item from "./backend/Item";
+import { MakeSingletonTriangle } from "./backend/SingletonTriangle";
 
 const rectTest = new Rect(200, 100, new Point(50, 20), "rect1");
 //rectTest.draw();
@@ -34,7 +35,6 @@ sceneTest.draw();
 // circleTest.getFilled();
 // rectTest.getFilled();
 // triangleTest.getFilled();
-
 // const startTest = new Star(
 //   [new Point(50, 50), new Point(75, 75), new Point(100, 50), new Point(75, 150), new Point(50, 50)],
 //   new Point(50, 50)
@@ -97,4 +97,14 @@ btnClear.addEventListener("click", () => {
   const canvas = document.querySelector("#canvas") as HTMLCanvasElement;
   const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-});
+
+const singleTriangleTest = MakeSingletonTriangle(Triangle);
+
+const singleTriangleTest1 = new singleTriangleTest(new Point(0, 0), new Point(0, 0), new Point(0, 0));
+const singleTriangleTest2 = new singleTriangleTest(new Point(10, 10), new Point(10, 10), new Point(10, 10));
+
+console.log(singleTriangleTest1.getInstance());
+console.log(singleTriangleTest2.getInstance());
+
+console.log(singleTriangleTest1.getInstance()?.getPosition());
+
