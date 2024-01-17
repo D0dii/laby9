@@ -4,10 +4,12 @@ import Shape from "./Shape";
 export default class Circle extends Shape {
   radius: number;
   position: Point;
-  constructor(radius: number, position: Point) {
+  id: string;
+  constructor(radius: number, position: Point, id: string = "") {
     super();
     this.radius = radius;
     this.position = position;
+    this.id = id;
   }
   getRadius() {
     return this.radius;
@@ -42,6 +44,19 @@ export default class Circle extends Shape {
     ctx.strokeStyle = "black";
     ctx.beginPath();
     ctx.arc(this.position.getX(), this.position.getY(), this.radius, 0, 2 * Math.PI);
+    ctx.stroke();
+  }
+  drawBoundingBox(): void {
+    const canvas = document.querySelector("#canvas") as HTMLCanvasElement;
+    const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+    const [topLeft, topRight, bottomLeft, bottomRight] = this.getBoundingBox();
+    ctx.strokeStyle = "purple";
+    ctx.beginPath();
+    ctx.moveTo(topLeft.getX(), topLeft.getY());
+    ctx.lineTo(topRight.getX(), topRight.getY());
+    ctx.lineTo(bottomRight.getX(), bottomRight.getY());
+    ctx.lineTo(bottomLeft.getX(), bottomLeft.getY());
+    ctx.lineTo(topLeft.getX(), topLeft.getY());
     ctx.stroke();
   }
 }

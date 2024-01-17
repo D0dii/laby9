@@ -5,11 +5,13 @@ export default class Triangle extends Shape {
   p1: Point;
   p2: Point;
   p3: Point;
-  constructor(p1: Point, p2: Point, p3: Point) {
+  id: string;
+  constructor(p1: Point, p2: Point, p3: Point, id: string = "") {
     super();
     this.p1 = p1;
     this.p2 = p2;
     this.p3 = p3;
+    this.id = id;
   }
   getP1() {
     return this.p1;
@@ -73,6 +75,19 @@ export default class Triangle extends Shape {
     ctx.lineTo(this.p2.getX(), this.p2.getY());
     ctx.lineTo(this.p3.getX(), this.p3.getY());
     ctx.lineTo(this.p1.getX(), this.p1.getY());
+    ctx.stroke();
+  }
+  drawBoundingBox(): void {
+    const canvas = document.querySelector("#canvas") as HTMLCanvasElement;
+    const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+    const [topLeft, topRight, bottomLeft, bottomRight] = this.getBoundingBox();
+    ctx.strokeStyle = "purple";
+    ctx.beginPath();
+    ctx.moveTo(topLeft.getX(), topLeft.getY());
+    ctx.lineTo(topRight.getX(), topRight.getY());
+    ctx.lineTo(bottomRight.getX(), bottomRight.getY());
+    ctx.lineTo(bottomLeft.getX(), bottomLeft.getY());
+    ctx.lineTo(topLeft.getX(), topLeft.getY());
     ctx.stroke();
   }
 }
