@@ -7,6 +7,7 @@ import Segment from "./backend/Segment";
 import TextItem from "./backend/TextItem";
 import Triangle from "./backend/Triangle";
 import Star from "./backend/Star";
+import { MakeSingletonTriangle } from "./backend/SingletonTriangle";
 
 const rectTest = new Rect(200, 100, new Point(50, 20));
 //rectTest.draw();
@@ -39,3 +40,17 @@ const startTest = new Star(
 );
 startTest.draw();
 startTest.getFilled();
+
+const singleTriangleTest = MakeSingletonTriangle(Triangle);
+
+const singleTriangleTest1 = new singleTriangleTest(new Point(0, 0), new Point(0, 0), new Point(0, 0));
+const singleTriangleTest2 = new singleTriangleTest(new Point(10, 10), new Point(10, 10), new Point(10, 10));
+
+console.log(singleTriangleTest1.getInstance());
+console.log(singleTriangleTest2.getInstance());
+
+console.log(singleTriangleTest1.getInstance()?.getPosition());
+
+document.addEventListener("click", (e) => {
+  console.log(e.target);
+});
