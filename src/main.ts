@@ -97,6 +97,7 @@ btnClear.addEventListener("click", () => {
   const canvas = document.querySelector("#canvas") as HTMLCanvasElement;
   const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+});
 
 const singleTriangleTest = MakeSingletonTriangle(Triangle);
 
@@ -107,4 +108,3 @@ console.log(singleTriangleTest1.getInstance());
 console.log(singleTriangleTest2.getInstance());
 
 console.log(singleTriangleTest1.getInstance()?.getPosition());
-
